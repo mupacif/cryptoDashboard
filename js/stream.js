@@ -20,9 +20,11 @@ subject.next({
 function display(arr) {
   if (!arr || !arr.map) return;
   //  close - opening/opening
-  const map2 = arr.map((e) => ({
+  const map2 = arr.filter(e => e.s.endsWith("USDT")).map((e) => ({
     diff: (+e['c'] - +e['o']) / +e['o'],
     name: e.s,
+    volume: +e.q,
+    price: +e.c,
   }));
 
   // on sort par evolution
@@ -31,7 +33,8 @@ function display(arr) {
   //on récupère le tableau
   const vals = map2.map(
     (e) =>
-      `<tr><td><a target='_blank' href=https://www.binance.com/en/trade/${e.name}>${e.name}</a></td><td>${e.diff.toFixed(2)}%</td><td>-</td><td></td><td></td></tr>`
+      `<tr><td><a target='_blank' href=https://www.binance.com/en/trade/${e.name}>${e.name}</a></td>\
+      <td>${e.diff.toFixed(2)}%</td><td>${e.volume.toFixed(2)} USDT</td><td>${e.price} USDT</td></tr>`
   );
 
   //on l'affiche
